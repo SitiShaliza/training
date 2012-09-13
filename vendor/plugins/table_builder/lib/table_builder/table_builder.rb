@@ -5,17 +5,17 @@ module TableHelper
     options = args.last.is_a?(Hash) ? args.pop : {}
     html_options = options[:html]
     builder = options[:builder] || TableBuilder
-
-    content_tag(:table, html_options) do
-      yield builder.new(objects || [], self, options)
-    end
+    
+    concat(tag(:table, html_options, true))
+    yield builder.new(objects || [], self, options)
+    concat('</table>')
   end
 
   class TableBuilder
     include ::ActionView::Helpers::TagHelper
 
     def initialize(objects, template, options)
-      raise ArgumentError, "TableBuilder expects an Enumerable object but found #{objects.inspect}" unless objects.respond_to? :each
+      raise ArgumentError, "TableBuilder expects an Array but found a #{objects.inspect}" unless objects.is_a? Array
       @objects, @template, @options = objects, template, options
     end
 
@@ -24,11 +24,11 @@ module TableHelper
         concat(tag(:thead, options_from_hash(args), true))
         yield
         concat('</thead>')
-      else
+      else        
         @num_of_columns = args.size
         content_tag(:thead,
           content_tag(:tr,
-            args.collect { |c| content_tag(:th, c.html_safe)}.join('').html_safe
+            args.collect { |c| content_tag(:th, c)}.join('')
           )
         )
       end
@@ -51,7 +51,7 @@ module TableHelper
         @objects.each { |c| yield(c) }
       end
     end
-
+    
     def body_r(*args)
       raise ArgumentError, "Missing block" unless block_given?
       options = options_from_hash(args)
@@ -59,10 +59,10 @@ module TableHelper
         @objects.each { |c|
           concat(tag(:tr, options, true))
           yield(c)
-          concat('</tr>'.html_safe)
+          concat('</tr>')
         }
       end
-    end
+    end    
 
     def r(*args)
       raise ArgumentError, "Missing block" unless block_given?
@@ -80,7 +80,7 @@ module TableHelper
       else
         content = args.shift
         content_tag(:th, content, options_from_hash(args))
-      end
+      end        
     end
 
     def d(*args)
@@ -91,36 +91,35 @@ module TableHelper
       else
         content = args.shift
         content_tag(:td, content, options_from_hash(args))
-      end
+      end        
     end
-
+    
 
     private
-
+    
     def options_from_hash(args)
       args.last.is_a?(Hash) ? args.pop : {}
     end
-
+    
     def concat(tag)
-      @template.concat(tag)
-      ""
+       @template.concat(tag)
     end
 
     def content_tag(tag, content, *args)
       options = options_from_hash(args)
       @template.content_tag(tag, content, options)
     end
-
+    
     def tbody
       concat('<tbody>')
       yield
       concat('</tbody>')
     end
-
+    
     def tr options
       concat(tag(:tr, options, true))
       yield
-      concat('</tr>')
+      concat('</tr>')      
     end
   end
 end

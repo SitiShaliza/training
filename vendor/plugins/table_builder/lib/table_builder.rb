@@ -1,6 +1,2 @@
-require "table_builder/table_builder.rb"
-require "table_builder/calendar_helper.rb"
-require "table_builder/version.rb"
-
-ActionView::Base.send :include, TableHelper
-ActionView::Base.send :include, CalendarHelper
+require(File.expand_path(File.join(File.dirname(__FILE__), 'table_builder', 'table_builder.rb')))
+require(File.expand_path(File.join(File.dirname(__FILE__), 'table_builder', 'calendar_helper.rb')))
