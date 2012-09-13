@@ -1,0 +1,94 @@
+<div class="tform">
+	<H2><%= t 'supplier.supplier_details' %></H2>
+	<table width=100%>
+		<tr>
+			<td class="leftcol"><label for="supplycode"><%= t 'supplier.supplycode' %> :</label></td>
+			<td><%=h @supplier.supplycode %></td>
+		</tr>
+	
+		<tr>
+			<td class="leftcol"><label for="category"><%= t 'supplier.category' %> :</label></td>
+			<td><%=h @supplier.category %></td>
+		</tr>
+	
+		<tr>
+			<td class="leftcol"><label for="maxquantity"><%= t 'supplier.current'%> :</label></td>
+			<td><%=h @supplier.current_quantity %> <%=h @supplier.unittype %></td>
+		</tr>
+	
+		<tr>
+			<td class="leftcol"><label for="maxquantity"><%= t 'supplier.maxquantity'%> :</label></td>
+			<td><%=h @supplier.maxquantity %> <%=h @supplier.unittype %></td>
+		</tr>
+	
+		<tr>
+			<td class="leftcol"><label for="minquantity"><%= t 'supplier.minquantity' %> :</label></td>
+			<td><%=h @supplier.minquantity %> <%=h @supplier.unittype %></td>
+		</tr>	
+</table>
+<H2><%= t 'supplier.add' %></H2><!--14/11/2011 - Shaliza added code for usesupply and issue supply in show page-->
+<table width=100%>
+	
+	<% for addsupplier in @supplier.addsuppliers %>
+		<tr>
+		<td class="leftcol"><label for="lpono "><%= t 'supplier.lpono' %> :</label></td>
+		<td><%=h addsupplier.lpono %></td>
+		</tr>
+
+		<tr>
+		<td class="leftcol"><label for="document "> <%= t 'supplier.document' %> :</label></td>
+		<td><%=h addsupplier.document %></td>
+		</tr>
+		
+		<tr>
+		<td class="leftcol"><label for="quantity "> <%= t 'supplier.quantity' %> :</label></td>
+		<td><%=h addsupplier.quantity %></td>
+		</tr>
+		
+		<tr>
+		<td class="leftcol"><label for="unitcost "> <%= t 'supplier.unitcost' %> :</label></td>
+		<td>RM <%=h addsupplier.unitcost %></td>
+		</tr>
+		
+		<tr>
+		<td class="leftcol"><label for="issuedate "><%= t 'supplier.issuedate' %> :</label></td>
+		<td><%=h l(addsupplier.received) %></td>
+		</tr>
+
+<tr><td colspan=4><HR></td></tr>
+<% end %>
+</table>
+
+<H2>Use/Issue Supplies</H2> <!--14/11/2011 - Shaliza added code for usesupply and issue supply in show page-->
+<table width=100%>
+	
+	<% for usesupply in @supplier.usesupplies %>
+		<tr>
+		<td class="leftcol"><label for="issuedby "><%= t 'supplier.issuedby' %> :</label></td>
+		<td><%=h usesupply.issuestaff_details %></td>
+		</tr>
+
+		<tr>
+		<td class="leftcol"><label for="receivedby "> <%= t 'supplier.receivedby' %> :</label></td>
+		<td><%=h usesupply.receivedby_details %></td>
+		</tr>
+		
+		<tr>
+		<td class="leftcol"><label for="quantity "> <%= t 'supplier.quantity' %> :</label></td>
+		<td><%=h usesupply.quantity %></td>
+		</tr>
+		
+		<tr>
+		<td class="leftcol"><label for="issuedate "><%= t 'supplier.issuedate' %> :</label></td>
+		<td><%=h l(usesupply.issuedate) %></td>
+		</tr>
+
+<tr><td colspan=4><HR></td></tr>
+<% end %>
+</table>
+</div>
+	<BR>
+
+<%= link_to (t 'icms.update'), edit_supplier_path(@supplier) %> |
+<%= link_to (t 'icms.back'), suppliers_path %>
+

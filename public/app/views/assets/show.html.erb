@@ -1,0 +1,103 @@
+<div class="tform"><!-- 07/11/2011 - Shaliza changed Label Name to in BM for show page-->
+	
+	<H2>Butiran Aset</H2>
+  <table width=100% >
+	<tr>
+		<td class="leftcol"><label for="staff_id">No Siri Pendaftaran:</label></td>
+		<td><%=h @asset.assetcode %></td>	
+	</tr>
+	<tr>
+		<td class="leftcol"><label for="staff_id">Kategori:</label></td>
+		<td><%=h @asset.category.description %></td>	
+	</tr>
+	<tr>
+		<td class="leftcol"><label for="subcategory">Sub Kategori:</label></td>
+		<td><%=h @asset.subcategory %></td>	
+	</tr>
+	<tr>
+	<td class="leftcol"><label for="bookable">Bookable:</label></td>
+	    <td><%=h @asset.bookable? ? "This item can be booked" : "No" %></td>
+	</tr>
+</table>
+<H2>Huraian Aset</H2>
+<table>
+ 
+	<tr>
+		<td class="leftcol"><label for="name">Nama Asset:</label></td>
+		<td><%=h @asset.name %></td>	
+	</tr>
+	<tr>
+		<td class="leftcol"><label for="typename">Jenis:</label></td>
+		<td><%=h @asset.typename %></td>	
+	</tr>
+	
+	<tr>
+		<td class="leftcol"><label for="typename">Kuantiti :</label></td>
+		<td><%=h @asset.quantity %> <%=h @asset.quantity_type %></td>	
+	</tr>
+	
+	<tr>
+		<td class="leftcol"><label for="staff_id">Pembuat:</label></td>
+		<td><%=h @asset.manufacturer_id.blank? ? "Not Recorded" : @asset.manufacturedby.name %></td>	
+	</tr>
+	<tr>
+		<td class="leftcol"><label for="modelname">Model:</label></td>
+		<td><%=h @asset.modelname %></td>	
+	</tr>
+	<tr>
+		<td class="leftcol"><label for="serialno">No Siri:</label></td>
+		<td><%=h @asset.serialno %></td>	
+	</tr>
+	<tr>
+		<td class="leftcol"><label for="location">Ditempatkan Di:</label></td>
+		<td><%=h @asset.location.blank? ? "" : @asset.location.name %></td>	
+	</tr>
+	<tr>
+		<td class="leftcol"><label for="staff_id">Assigned to:</label></td>
+		<td><%=h @asset.assignedto_id.blank? ? "-" : @asset.assignedto.staff_name_with_position %></td>	
+	</tr>
+	<tr>
+		<td class="leftcol"><label for="staff_id">Status:</label></td>
+		<td><%=h @asset.status %></td>	
+	</tr>
+	<tr>
+		<td class="leftcol"><label for="otherinfo">Maklumat Lain :</label></td>
+		<td><%=h @asset.otherinfo %></td>	
+	</tr>
+</table>
+<H2>Maklumat Pembayaran</H2>
+<table>
+
+	<tr>
+		<td class="leftcol"><label for="staff_id">No Pesanan :</label></td>
+		<td><%=h @asset.orderno %></td>	
+	</tr>
+	<tr>
+		<td class="leftcol"><label for="staff_id">Harga Perolehan:</label></td>
+		<td><%=h ringgols(@asset.purchaseprice) %></td>	
+	</tr>
+	<tr>
+		<td class="leftcol"><label for="purchasedate">Tarikh Pembayaran :</label></td>
+		<td><%=h @asset.purchasedate.strftime("%d %B %Y") unless @asset.purchasedate.blank? %></td>
+	</tr>
+	<tr>
+		<td class="leftcol"><label for="purchasedate">Tarikh Terima:</label></td>
+		<td><%=h @asset.receiveddate.strftime("%d %B %Y") unless @asset.receiveddate.blank? %></td>
+	</tr>
+	<tr>
+		<td class="leftcol"><label for="staff_id">Di Terima Oleh :</label></td>
+		<td><%=h @asset.receivedby.blank? ? "-" : @asset.receivedby.staff_name_with_position %></td>	
+	</tr>
+	<tr>
+		<td class="leftcol"><label for="staff_id">Nama Pembekal :</label></td>
+		<td><%=h @asset.supplier_id.blank? ? "-" : @asset.suppliedby.name %></td>	
+	</tr>
+
+</table>
+<BR>
+</div>
+
+
+
+<%= link_to 'Edit', edit_asset_path(@asset) %> |
+<%= link_to 'Back', assets_path %>

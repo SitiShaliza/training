@@ -1,0 +1,17 @@
+<div class="tform"><!--09/11/2011 - Shaliza changed title bar and add place holder RM-->
+	<H2><%= t 'ptbudget.budget_details' %></H2>
+  <table width=100% >
+	
+	<tr>
+		<td class="leftcol"><label for="budget"><%= t 'ptbudget.budget' %> : </label></td>
+		<td><%= f.text_field :budget, :size => 12, :placeholder => 'RM' %></td>
+	</tr>
+	
+	<tr>
+		<td class="leftcol"><label for="fiscalstart"><%= t 'ptbudget.fiscalstart' %> : </label></td>
+		<td><%= f.date_select :fiscalstart, :start_year => 1945, :end_year => 2020, :order => [:day, :month, :year], :include_blank => true %></td>
+		
+	</tr>
+
+</table>		
+</div>

@@ -1,0 +1,64 @@
+<!-- Box -->
+<div class="box">
+<!-- Box Head -->
+  <div class="box-head">
+    <h2 class="left">Lists of Documents</h2>
+		<div class="right">
+      <% form_tag documents_path, :method => 'get' do %>
+	  		<%= text_field_tag :search, params[:search], :placeholder => "RefNo,Title" %>
+	  		<%= submit_tag I18n.t('search'), :title => nil %>
+			<% end %>
+		</div>
+  </div>
+</div>
+
+<div class="tlist">
+	<table width=100% border="0" cellpadding="0" cellspacing="0">
+		<tr>
+		  <th>Category</th>
+		  <th>Title</th>
+		  <th>Received Date</th>
+		  <th>From</th>
+		  <th>Filed By</th>
+		  <th>Circulation I </th>
+		  <th>Circulation II</th>
+		  <th>Closed</th>
+		  <th colspan=3 class="ac">Control</th>
+		</tr>
+
+    <% @document_files.each do |filedocer, documents| %>
+    <tr>
+      <td colspan=12><BR> <b><%=h filedocer %><b></td>
+   	</tr>
+        
+			<% for document in documents %>
+			<tr>
+				<td><%=h (Document::CATEGORY.find_all{|disp, value| value == document.category.to_s}).map {|disp, value| disp} %></td>
+				<td><%=h document.title %></td>
+				<td><%=h document.letterxdt.blank? ? "-" : document.letterxdt.strftime("%d-%b-%Y") %></td>
+				<td><%=h document.from %></td>
+				<td><%=h document.stafffiled_details %></td>
+				<td><%=h document.circulation1_details %></td>
+				<td><% for document_staffs in document.staffs %>
+									- <%=h document_staffs.staff_name_with_title %><br>
+							<% end %>
+				</td>
+				<td><%=h document.cc2closed? ? "Yes" : "No" %></td>
+				<td width=10px><%= link_to image_tag("document.png", :border => 0, :title => 'Show'), :action => 'show', :id => document %></td>
+				<% if (User.current_user.staff_id == document.cc1staff_id && document.cc2closed != true) %>
+				<td width=10px><%= link_to image_tag("approval.png", :border => 0, :title => 'Circulation I'), :action => 'action1', :id => document %></td>
+					<% elsif (document.cc2closed == nil || document.cc2closed != nil) %>
+				<td width=10px><%= link_to image_tag("approval.png", :border => 0, :title => 'Circulation II'), :action => 'action1', :id => document %></td>
+				<% else %><% end %>
+				<% if permitted_to? :manage, :documents %>
+				<td width=10px><%= link_to image_tag("edit.png",     :border => 0, :title => 'Edit'), :action => 'action1', :id => document %></td>
+				<td width=10px><%= link_to image_tag("delete.png",   :border => 0, :title => 'Delete'), document, :confirm => 'Are you sure?', :method => :delete %></td><%end%>
+			</tr>
+			<% end %>
+		<% end %>
+  </table> 
+
+</div>
+<br />
+
+<%= link_to 'New Document', new_document_path %>

@@ -1,0 +1,64 @@
+<%= stylesheet_link_tag 'report' %> 
+<div id="A4landscape">
+	
+<form action="#">
+	<script>
+	document.write("<input type='button' " +
+	"onClick='window.print()' " +
+	"class='printbutton' " +
+	"value='Print This Page'/>");
+	</script>
+	<fieldset width=10px >
+
+<div id="title" width=21cm>	
+<H2>LAMPIRAN A</H2> 
+
+
+<H3 align ="center">MAKLUMAT PERJAWATAN DI PUSAT LATIHAN</H3>
+<H3 align ="center">AGENSI PENGUATKUASAAN MARITIM MALAYSIA</H3>
+<H3 align ="center">SEHINGGA <%= Date.today.strftime('%d-%m-%Y') %></H3>
+
+<BR>
+
+<p align="center">PUSAT LATIHAN AGENSI PENGUATKUASAAN MARITIM MALAYSIA </p>
+<BR>
+	
+<div id="tprintreport">
+<table width=100% border=1px cellspacing=0 align="center" >
+	
+	<tr>
+		<th width="1%"  valign="top" >BIL</th>
+	<!--	<th width="4%"  valign="top" >KOD</th>-->
+		<th width="25%"  valign="top">JAWATAN</th>
+		<th width="2%"  valign="top">GRED JAWATAN</th>
+		<th width="25%"  valign="top">NAMA</th>
+		<th width="10%"  valign="top">NO K/P</th>
+	<!--	<#th width="5%"  valign="top">TARIKH LAHIR</th>-->
+	<!--	<th width=4cm valign="top">TARIKH LANTIKAN PERTAMA</th>
+		<th width=4cm valign="top">TARIKH KENAIKAN PANGKAT KE GRED SEKARANG</th>-->
+		<th width="10%" valign="top">CATATAN *</th>
+	</tr>
+	
+	 <% just_a_counter = 0 %>
+	 <% @positions.each do |position| %>
+	    <% just_a_counter += 1 %>
+    <tr align="center">
+	<td><%=h just_a_counter %> </td>
+<!--	<td align="left"><#%=h position.positioncode %> </td>-->	
+	<td align="left"><%=h position.positionname %></td>	
+	<td><%=h position.staffgrade.blank? ? "-" : position.staffgrade.name %></td>
+	<td align="left"><%=h position.title_details %> <%=h position.staff.blank? ? "-" : position.staff.name %></td>	<!--14/12/2011 - Shaliza added title in front of name -->
+	<td><%=h position.staff.blank? ? "-" : position.staff.formatted_mykad %></td>
+<!--	<td><#%=h position.staff.blank? ? "-" : position.staff.cobirthdt.strftime('%d-%m-%Y') %></td>-->
+<!--	<td><#%=h position.staff.blank? ? "-" : position.staff.appointdt %></td>
+	<td><#%=h position.staff.blank? ? "-" : position.staff.posconfirmdate %></td>-->
+	<td>&nbsp;</td>
+	</tr>
+	
+	<% end %>
+	
+	
+</table>
+</div>
+</fieldset>
+</form>

@@ -1,0 +1,24 @@
+<div class="tform">
+<H2>Attendance Details</H2>
+  <table width=100% > 
+	<tr>
+		<td class="leftcol"><label for="timetable_id">Timetable</label></td>
+		<td width=3%><b>:</b></td>
+	    <td><%= f.collection_select :timetable_id, Timetable.find(:all), :id, :class_time%></td>
+	</tr>
+	<tr>
+		<td class="leftcol"><label for="student_id">Student Name</label></td>
+		<td width=3%><b>:</b></td>
+		<td><%= f.collection_select :student_id, Student.find(:all), :id, :student_name_with_programme %></td>
+	</tr>
+	<tr>
+		<td class="leftcol"><label for="sgname">Attend?</label></td>
+		<td width=3%><b>:</b></td>
+		<td><%= f.check_box :attend %></td>
+	</tr>
+	
+
+	
+</table>
+<BR>
+	</div>

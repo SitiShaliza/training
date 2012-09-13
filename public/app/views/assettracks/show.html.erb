@@ -1,0 +1,58 @@
+<div class="tform">
+	<H2><%= t 'assettrack.reservation_details' %></H2>
+  <table width=100% >
+	
+<!--Staff Details-->	
+
+	<tr>
+		<td class="leftcol"><label for="asset_id"><%= t 'assettrack.assetname' %> :</label></td>
+		<td><%=h @assettrack.assetinassettrack.assetcode %> - <%=h @assettrack.assetinassettrack.name %></td>	
+	</tr>
+	<tr>
+		<td class="leftcol"><label for="staff_id"><%= t 'assettrack.borrower' %> :</label></td>
+		<td><%=h @assettrack.staff_id? ? @assettrack.borrower_details : ""  %></td>
+	</tr>
+	<tr>
+		<td class="leftcol"><label for="reservationdate"><%= t 'assettrack.reservationdate' %>  :</label></td>
+		<td><%=h @assettrack.reservationdate.strftime("%d %B %Y") %></td>	
+	</tr>
+	<tr>
+		<td class="leftcol"><label for="use_startdate"><%= t 'assettrack.use_startdate' %>  :</label></td>
+		<td><%=h @assettrack.use_startdate.strftime("%d %B %Y") %> <==> 
+			  <%=h @assettrack.use_enddate.strftime("%d %B %Y") %> (<%= t 'assettrack.duration' %> : <%= @assettrack.duration %> Days)</td>	
+	</tr>
+	<td class="leftcol"><label for="bookable"><%= t 'assettrack.issuedby' %> :</label></td>
+	    <td><%=h @assettrack.isby.blank? ? "" : @assettrack.isby.staff_name_with_position %></td>
+	</tr>
+	<tr>
+		<td class="leftcol"><label for="issuedate"><%= t 'assettrack.issuedate' %> :</label></td>
+		<td><%=h @assettrack.issuedate.strftime("%d %B %Y") unless @assettrack.issuedate.blank? %></td>	
+	</tr>
+	<tr>
+		<td class="leftcol"><label for="expectedreturndate"><%= t 'assettrack.expectedreturndate' %> :</label></td>
+		<td><%=h @assettrack.expectedreturndate.strftime("%d %B %Y") %></td>	
+	</tr>
+</table>
+<H2><%= t 'assettrack.returned' %></H2>
+<table>
+
+	<tr>
+		<td class="leftcol"><label for="returnedto"><%= t 'assettrack.returnedto' %> :</label></td>
+		<td><%=h @assettrack.assettrackreturn.blank? ? "Not Returned" : @assettrack.assettrackreturn.staff_name_with_position %></td>	
+	</tr>
+	<tr>
+		<td class="leftcol"><label for="actualreturndate"><%= t 'assettrack.actualreturndate' %> :</label></td>
+		<td><%=h @assettrack.actualreturndate.strftime("%d %B %Y") unless @assettrack.actualreturndate.nil? %></td>	
+	</tr>
+	<tr>
+		<td class="leftcol"><label for="remarks"><%= t 'assettrack.remarks' %> :</label></td>
+		<td><%=h @assettrack.remarks %></td>	
+	</tr>
+
+</table>
+<BR>
+</div>
+
+
+<%= link_to 'Edit', edit_assettrack_path(@assettrack) %> |
+<%= link_to 'Back', assettracks_path %>

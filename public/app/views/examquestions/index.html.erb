@@ -1,0 +1,40 @@
+<!-- Box -->
+<div class="box">
+	<!-- Box Head -->
+	<div class="box-head">
+		<h2 class="left">Lists of Exam Questions</h2>
+	</div>
+</div>
+<div class="tlist">
+	<table width=90% border="0" cellpadding="0" cellspacing="0">
+		<tr>
+	    <th>Programme/Subject Code</th>
+	    <th>Question Type</th>
+	    <th>Marks</th>
+	    <th>Category</th>
+	    <th>Difficulty</th>
+	    <th>Status</th>
+	    <th>Creator Name</th>
+	    <th colspan=3 class="ac">Control</th>
+		</tr>
+		<% @examquestions.each do |examquestion| -%>
+  	<tr>
+		  <td><%=h examquestion.curriculum_id? ? examquestion.subject_details : "" %></td>
+		  <td><%=h examquestion.questiontype %></td>
+		  <td><%=h examquestion.marks %></td>
+		  <td><%=h examquestion.category %></td>
+		  <td><%=h examquestion.render_difficulty %></td>
+	    <td><%=h examquestion.qstatus %></td>
+	    <td><%=h examquestion.creator_id? ? examquestion.creator_details : "" %></td>
+	    <td width=10px><%= link_to image_tag("document.png", :border => 0, :title => 'Show'), :action => 'show', :id => examquestion %></td>
+	    <td width=10px><%= link_to image_tag("edit.png", :border => 0, :title => 'Edit'), :action => 'edit', :id => examquestion %></td>
+	    <td width=10px><%= link_to image_tag("delete.png", :border => 0, :title => 'Delete'), examquestion, :confirm => 'Are you sure?', :method => :delete %></td>
+  	</tr>
+		<% end -%>
+	</table>
+
+<br />
+
+<%= link_to 'New ExamQuestion', new_examquestion_path %>
+
+</div>

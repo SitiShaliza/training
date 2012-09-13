@@ -1,0 +1,38 @@
+<div class="tform">
+	<H2>Attendance Details</H2>
+  <table width=100% >
+  
+	<tr>
+		<td class="leftcol"><label for="timetable_id">Class Name</label></td>
+		<td width=3%><b>:</b></td>
+	    <td><%=h @studentattendance.timetable.classroom_stu %></td>
+	</tr>
+	<tr>
+		<td class="leftcol"><label for="timetable_id">Subject Name</label></td>
+		<td><b>:</b></td>
+	    <td><%=h @studentattendance.timetable.subject_details %></td>
+	</tr>
+	<tr>
+		<td class="leftcol"><label for="timetable_id">Topic Name</label></td>
+		<td><b>:</b></td>
+	    <td><%=h @studentattendance.timetable.topic_details %></td>
+	</tr>
+	<tr>
+		<td class="leftcol"><label for="sglevel">Student Name</label></td>
+		<td><b>:</b></td>
+		<td><%=h @studentattendance.student_details %></td>
+	</tr>
+	<tr>
+		<td class="leftcol"><label for="sgname">Attend?</label></td>
+		<td><b>:</b></td>
+	<td><%=h @studentattendance.attend? ? "Attend" : "Not Attend" %></td>
+	</tr>
+	
+
+	
+</table>
+</div>
+<BR>
+
+<%= link_to 'Edit', edit_studentattendance_path(@studentattendance) %> |
+<%= link_to 'Back', studentattendances_path %>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+		
+		<%= javascript_include_tag "jquery", "jquery.treeTable", "prototype", "application" %>
+		<script>$j = jQuery.noConflict();</script>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title><%= @pagetitle || (@page && @page.title) || 'Pusat Latihan APMM - Gebeng Kuantan' %></title>
+		<%= stylesheet_link_tag 'ICMS', 'treeTable', :media => :screen %>
+		<%= stylesheet_link_tag 'print', :media => :print %>
+		
+</head>
+<body>
+<div id='pagewrapper'>
+  <div id="top-menu">
+		<div id="account">
+				<% if logged_in? %>
+			  	Welcome <%=h  User.current_user.user_nama %> &nbsp
+					<%= link_to "Log Out", logout_path %>
+				<% else %>
+					<%= link_to "Log In", login_path %>or <%= link_to "Sign Up", signup_path %>
+				<% end %>
+	  </div>
+  </div>
+		
+  <div id='header'>
+	    <%= image_tag("APMMBannercopy.jpg") %>  <!-- this line and replace similiar line in other app then copy the file marked in finder on top of me (dont copy directories!) --> 
+			<% form_tag '', :method => 'GET', :class => 'locale' do %>
+			 <%= select_tag 'locale', options_for_select(LANGUAGES, I18n.locale), :onchange => 'this.form.submit()' %>
+			 <%= submit_tag 'submit' %>
+			 <%= javascript_tag "$$('.locale input').each(Element.hide)" %>
+	    <% end %>
+	    
+			<% if logged_in? %>
+		
+			<% else %>
+			<% end %>
+
+			<div id='notifications'>
+			</div>
+		</div>
+
+  <div id='navbar'>
+    <%= render '/viewer/menus' %>	
+  </div>
+
+  <div id='content'>
+		<% flash.each do |key, msg| %>
+			<%= content_tag :div, msg, :id => key %>
+		<% end %>
+		<% if logged_in? %>
+	  <% if (request.request_uri == "/" || request.request_uri == "/home") %>  <!-- show only if at root -->
+			<%= render '/viewer/notifications' %>
+	  <% end %>
+	  <% end %>
+		<div>
+		<%= yield %>
+		</div>
+  </div>
+
+  <div id="event_bar">
+    <%= render '/viewer/event' %>
+  </div>
+
+  <div id="bulletin">
+  		<%= render '/viewer/bulletin' %>
+  </div>
+
+
+	
+	
+
+	     
+  <div id='footer'>
+	  <p></p>
+  </div>
+</div>
+<div id='text'>
+	<!--<#%= render '/viewer/debuginfo' %>  remove hash to enable-->
+</div>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<div class="tform">
+	<H2>Topics</H2>
+<table width=100%>
+	
+	<tr>
+		<td class="leftcol"><label for="subject_id">Subject</label></td>
+		<td width=3%><b>:</b></td>
+		<td><%=h @topic.subject_details %></td>
+	</tr>
+	
+	
+	<tr>
+		<td class="leftcol"><label for="topic_code">Topic Code</label></td>
+		<td><b>:</b></td>
+		<td><%=h @topic.topic_code %></td>
+	</tr>
+	
+	
+	<tr>
+		<td class="leftcol"><label for="sequenceno">Sequence No</label></td>
+		<td><b>:</b></td>
+		<td><%=h @topic.sequenceno %></td>
+	</tr>
+	
+	<tr>
+		<td class="leftcol"><label for="name">Topic Name/Title</label></td>
+		<td><b>:</b></td>
+		<td><%=h @topic.name %></td>
+	</tr>
+	
+	<tr>
+		<td class="leftcol"><label for="duration">Duration For Topic</label></td>
+		<td><b>:</b></td>
+		<td><%=h @topic.durahours %>:<%=h @topic.duramins %> Hours</td>
+	</tr>
+	
+	<tr>
+		<td class="leftcol"><label for="version">Version No</label></td>
+		<td><b>:</b></td>
+		<td> <%=h @topic.version %></td>
+	</tr>
+	
+	<tr>
+		<td class="leftcol"><label for="objective">Objective</label></td>
+		<td><b>:</b></td>
+		<td><%=raw sanitize(simple_format(@topic.objective), :tags => %w(br) ) %></td>
+	</tr>
+	
+	<tr>
+		<td class="leftcol"><label for="content">Content</label></td>
+		<td><b>:</b></td>
+		<td><%=raw sanitize(simple_format(@topic.content), :tags => %w(br) ) %></td>
+	</tr>
+	
+	<tr>
+		<td class="leftcol"><label for="activity">Activity</label></td>
+		<td><b>:</b></td>
+		<td><%=raw sanitize(simple_format(@topic.activity), :tags => %w(br) ) %></td>
+	</tr>
+	
+	<tr>
+		<td class="leftcol"><label for="creator_id">Created By</label></td>
+		<td><b>:</b></td>
+		<td> <%=h @topic.created_details %></td>
+	</tr>
+	</table>
+
+	<H2>Training Notes</H2>
+		<table width=80% border=1 cellspacing=0>
+              <tr>
+	            <th width=3%>No</th>
+				<th ><label for="data"><%= t 'document.uploaded' %></label></th>
+				<th ><label for="closed">Title Document</label></th>
+				<th ><label for="closed">Release Date</label></th>
+			  </tr>
+			
+			  <% bil = 0 %>
+             	<% for training_note in @topic.training_notes %>   
+               <% bil += 1 %>
+			<tr>
+			
+			<td><%= bil %></td>
+			<td><% if training_note.document.exists? then %>
+				<%= training_note.document_file_name %>
+				<%= link_to (t 'document.download'), training_note.document.url %> 
+				<% else %>
+				<i>No File Available</i>
+				<% end %></td>
+				<td><%=h training_note.title %></td>
+				<td><%=h training_note.release.blank? ? "-" : training_note.release.strftime("%d %b %Y")  %></td>
+		</tr>
+		
+	
+		
+	<% end %>
+	</table>
+
+<% if @topic.approvedby_id != nil %>
+	<H2>Approval</H2>
+	<table width=100%>
+	
+	<tr>
+		<td class="leftcol"><label for="approved">Approved?</label></td>
+		<td width=3%><b>:</b></td>
+		<td><%=h @topic.approved? ? "Approved" : "Not Approved" %></td>
+	</tr>
+	<tr>
+		<td class="leftcol"><label for="remarks">Remarks</label></td>
+		<td><b>:</b></td>
+		<td> <%=h @topic.remarks %></td>
+	</tr>
+	<tr>
+		<td class="leftcol"><label for="approved_date">Approved On</label></td>
+		<td><b>:</b></td>
+		<td><%=h @topic.approved_date.blank? ? "-" : @topic.approved_date.strftime("%d %b %Y") %></td>
+	</tr>
+	<tr>
+		<td class="leftcol"><label for="approvedby_id">Approved By</label></td>
+		<td><b>:</b></td>
+		<td><%=h @topic.approver_details %></td>
+	</tr>
+
+	</table>
+<% end %>
+
+
+<!--	<H2>Checking</H2>
+	<table>
+	
+	
+	<tr>
+		<td class="leftcol"><label for="checkcode">Checking Code:</label></td>
+		<td><#%=h @topic.checkcode %></td>
+	</tr>
+	<tr>
+		<td class="leftcol"><label for="checkdate">Check Date:</label></td>
+		<td><#%=h @topic.checkdate %></td>
+	</tr>
+</table>-->
+
+</div>
+<BR>
+<%= link_to 'Edit', edit_topic_path(@topic) %> |
+<%= link_to 'Back', topics_path %>

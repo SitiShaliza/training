@@ -1,0 +1,18 @@
+<h1>Listing analysispaperexams</h1>
+
+<table>
+  <tr>
+  </tr>
+
+<% @analysispaperexams.each do |analysispaperexam| %>
+  <tr>
+    <td><%= link_to 'Show', analysispaperexam %></td>
+    <td><%= link_to 'Edit', edit_analysispaperexam_path(analysispaperexam) %></td>
+    <td><%= link_to 'Destroy', analysispaperexam, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New analysispaperexam', new_analysispaperexam_path %>

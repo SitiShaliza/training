@@ -1,0 +1,73 @@
+<div class="tform">
+	<%= render :partial => '_show_report_details' %>
+	
+	<%= render :partial => '_show_case_info' %>
+	
+	<table>
+		<tr>
+			<td class="leftcol"><label for="action"><b>Action Taken:</b></label></td>
+			<td> <%=h @sdicipline.action %></td>
+		</tr>
+
+		<tr>
+			<td class="leftcol"><label for="closedtcollege"><b>Date Closed (College):</b></label></td>
+			<td> <%=h @sdicipline.closedtcollege %></td>
+		</tr>
+
+		<tr>
+			<td class="leftcol"><label for="location"><b>Location:</b></label></td>
+			<td> <%=h @sdicipline.location %></td>
+		</tr>
+
+		<tr>
+			<td class="leftcol"><label for="otherinfo"><b>Other Information:</b></label></td>
+			<td><%=h @sdicipline.otherinfo %></td>
+		</tr>
+	</table>
+
+	
+	<H2>Refer to BPL</H2>
+	<table width=100%>
+		<tr>
+			<td class="leftcol"><label for="bplsenddt"><b>Date Sent To BPL:</b></label></td>
+			<td><%=h @sdicipline.bplsenddt %></td>
+		</tr>
+
+			<tr>
+				<td class="leftcol"><label for="jtkpdt"><b>Date JTKP:</b></label></td>
+				<td> <%=h @sdicipline.jtkpdt %></td>
+			</tr>
+
+			<tr>
+				<td class="leftcol"><label for="jtkpdecision"><b>JTKP Decision:</b></label></td>
+				<td><%=h @sdicipline.jtkpdecision %></td>
+			</tr>
+			
+			<tr>
+				<td class="leftcol"><label for="jtkpdescisionrxdt"><b>Date JTKP Decision:</b></label></td>
+				<td><%=h @sdicipline.jtkpdescisionrxdt %></td>
+			</tr>
+			
+			<tr>
+				<td class="leftcol"><label for="appealdt"><b>Appeal Date:</b></label></td>
+				<td><%=h @sdicipline.appealdt %></td>
+			</tr>
+			
+			<tr>
+				<td class="leftcol"><label for="appealdecision"><b>Appeal Decision:</b></label></td>
+				<td> <%=h @sdicipline.appealdecision %></td>
+			</tr>
+			
+			<tr>
+				<td class="leftcol"><label for="appealdecisionrxdt"><b>Appeal Decision Date:</b></label></td>
+				<td><%=h @sdicipline.appealdecisionrxdt %></td>
+			</tr>
+			
+
+</table>
+<BR>
+</div>
+
+
+<%= link_to 'Edit', edit_sdicipline_path(@sdicipline) %> |
+<%= link_to 'Back', sdiciplines_path %>

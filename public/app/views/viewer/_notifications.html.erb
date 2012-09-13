@@ -1,0 +1,69 @@
+<div id='notifications_nuovo'>
+	<h4>Notification Area</h4>
+	<p>
+	<!-- Notification for Staff Leave Application -->
+  <% a = Leaveforstaff.count(:all, :conditions => ["approval1_id=? AND approval1 IS ?", User.current_user.staff_id, nil]) %>
+  <% b = Leaveforstaff.count(:all, :conditions => ["approval2_id=? AND approver2 IS ? AND approval1=?", User.current_user.staff_id, nil, true]) %>
+  <% dash_leave = a+b %>
+  <% if dash_leave == 0 %>
+  <% else %>
+    <%= dash_leave %> <%= link_to "leave application for approval", { :controller => "leaveforstaffs", :action => "index" } %><br>
+  <% end %>
+
+	<!-- Notification for Messages 
+  <#% dash_messages = Message.count(:all, :conditions => ["to_id=?", User.current_user.staff_id]) %>
+  <#% if dash_messages == 0 %>
+    
+  <#% else %>
+    <#%= dash_messages %> <#%= link_to "new messages", { :controller => "messages", :action => "index" } %><br>
+  <#% end %>-->
+
+
+
+
+  <!-- Notification for Staff Late Approval -->
+  <% dash_attendance = Attendance.count(:all, :conditions => ["approve_id=? AND approvestatus IS ?", User.current_user.staff_id, nil]) %>
+  <% if dash_attendance == 0 %>
+    <p>
+  <% else %>
+    <%= dash_attendance %> <%= link_to "late attendance for approval", { :controller => "attendances", :action => "index" } %><br>
+  <% end %>
+
+  <!-- Notification for Student Leave Approval -->
+  <% c = User.find(:all, :select => "id", :conditions => ['roles.id =?', 7], :include => :roles).map(&:id) %>
+  <% d = User.current_user.id.to_a %>
+  <% dash_lfs = Leaveforstudent.count(:all, :conditions => ["studentsubmit =? AND approved IS ?", true, nil]) %>
+  
+  <% if (d & c == c) && dash_lfs > 0 %>
+  <p><%= dash_lfs %> <%= link_to "student leave request for approval", { :controller => "leaveforstudents", :action => "index" } %></p>
+  <% else %>
+	<% end %>
+	
+	<!-- Notification for New User -->
+	<% permitted_to? :manage, :users do %>
+		<% users_wo_roles = User.count(:all, :select => "id", :conditions => ["student_id=? AND staff_id IS ?", nil, nil]) %>
+		<% if users_wo_roles == 0 %>
+		<% else %>
+			<% users_wo_roles %> <% link_to "New Users", users_path %><br>
+		<% end %>
+	<% end %>
+	
+	<!-- Notification for Documents-->
+	<% mydocs = Document.count(:all, :conditions => ["cc1staff_id=? AND cc2staff_id =?", User.current_user.staff_id, User.current_user.staff_id]) %>
+  <% if mydocs > 0 %>
+  	<%= mydocs %> <%= link_to "new documents for your attention", { :controller => "documents", :action => "index" } %><br>
+  <% else %>
+	<% end %>
+	
+	
+	<!-- Overdue Library Books for Staff -->
+	<% latestaff = Librarytransaction.count(:all, :conditions => ["staff_id=? AND returnduedate < ? AND returneddate IS ?", User.current_user.staff_id, Time.now, nil]) %>
+	<% if latestaff > 0 %>
+	   <%= latestaff %> <%= link_to "OverDue Book For Your Attentions", { :controller => "librarytransactions", :action => "index" } %><br>
+	<% else %>
+	<% end %>
+  
+	
+</p>
+	
+</div>

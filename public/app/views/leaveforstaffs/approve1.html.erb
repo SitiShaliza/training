@@ -1,0 +1,35 @@
+<h3><%= t 'staffleave.approve' %></h3>
+
+<% form_for(@leaveforstaff) do |f| %>
+  <%= f.error_messages %>
+
+<div class="tform">
+<%= render :partial => 'applyshow' %>
+<table width=100% >
+
+<BR>
+		<tr>
+			<th colspan = 2><%= t 'staffleave.approve_leave' %></th>
+		</tr>
+
+		<tr>
+		  <td class="leftcol"><label for="approval1"><b><%= t 'staffleave.approved' %>?:</b></label></td>
+			<td><%= f.radio_button :approval1,'Not Endorsed' %><%= t 'staffleave.notapp' %> &nbsp<%= f.radio_button :approval1,'Endorsed' %><%= t 'staffleave.app' %></td>
+		</tr>
+
+		<tr>
+		  <td class="leftcol"><label for="approval1date"><b><%= t 'staffleave.approval2date' %> :</b></label></td>
+			<td><%= f.date_select :approval1date, :start_year => 2010, :end_year => 2020, :order => [:day, :month, :year] %></td>
+		</tr>
+  </table>
+</div>
+
+  <p>
+    <%= f.submit (t 'icms.update') %>
+  </p>
+
+<% end %>
+
+
+<%= link_to (t 'icms.show'), @leaveforstaff %> |
+<%= link_to (t 'icms.back'), leaveforstaffs_path %>

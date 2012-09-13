@@ -1,0 +1,29 @@
+<h3><%= t 'attendance.edit' %></h3>
+
+<% form_for(@attendance) do |f| %>
+  <%= f.error_messages %>
+
+
+<%=render :partial => 'form', :locals => {:f => f} %> 
+
+<H2>Approval</H2>
+<table>
+  <tr>
+		<td class="leftcol"><label for="approve_id"><b><%= t 'attendance.approve_id' %></b></label></td>
+		<td><%= f.collection_select :approve_id, Staff.find(:all, :conditions => ["id = ?", @attendance.staffthatattend.position.bosses.staff.id ]), :id, :position_with_name %>
+			</td>
+  </tr>
+</table>
+</div>
+<BR>
+<p><%= t 'attendance.marked' %><font color="red"> * </font> <%= t 'attendance.required' %></td></p>
+
+<p>
+    <%= f.submit (t 'icms.update') %>
+</p>
+
+<% end %>
+</div>
+
+<%= link_to (t 'icms.show'), @attendance %> |
+<%= link_to (t 'icms.back'), attendances_path %>

@@ -1,0 +1,46 @@
+<!-- Box -->
+<div class="box">
+	<!-- Box Head -->
+	<div class="box-head">
+		<h2 class="left">Lists of Stock Application</h2>
+	</div>
+</div>
+<div class="tlist">
+	 <table width=100% border="0" cellpadding="0" cellspacing="0">
+		 <tr>
+			<th>App No</th>
+			<th>Staff Name</th>
+    		<th>Ordered Date</th>
+    		<th>Status</th>
+			<th>Approver</th>
+   			<th colspan=3 class="ac">Control</th>
+  		</tr>
+
+ 
+
+<% @stocks.each do |stock| %>
+  <tr>
+	<td><%=h stock.app_no %></td>
+	<td><%=h stock.applicant.staff_name_with_title %></td>
+	<td><%=h stock.app_date.strftime("%d %b %Y") unless stock.app_date.blank? %></td>
+	<td><%=h (Stock::STATUS.find_all{|disp, value| value == stock.status}).map {|disp, value| disp} %></td>
+	<td><%=h stock.approver.staff_name_with_title %></td>
+	<td width=10px><% if stock.status != 1  %>
+	<%= link_to image_tag("printer.png", :border => 0, :title => 'KEW.PS 11'), :action => 'kewpa11', :id => stock %><% end %></td>
+    <td width=10px><%= link_to image_tag("document.png", :border => 0, :title => 'Show'), :action => 'show', :id => stock %></td>
+	<% if permitted_to? :approve, stock %><td width=10px>
+	<%= link_to image_tag("approval.png", :border => 0, :title => 'approval'), :action => 'approve', :id => stock %></td><% end %>
+	<% if permitted_to? :store, stock %><td width=10px>
+	<%= link_to image_tag("approval.png", :border => 0, :title => 'update store'), :action => 'store', :id => stock %></td><% end %>
+    <% if permitted_to? :update, stock %>
+	<% if stock.status == 4  %>
+	<td width=10px><%= link_to image_tag("edit.png",     :border => 0, :title => 'Edit'), :action => 'edit', :id => stock %></td><% end %><% end%>
+	<% if permitted_to? :destroy, stock %>
+	<td width=10px><%= link_to image_tag("delete.png",   :border => 0, :title => 'Delete'), stock, :confirm => 'Are you sure?', :method => :delete %></td><% end %>
+  </tr>
+<% end %>
+</table>
+</div>
+<br />
+
+<%= link_to 'New Stock Application', new_stock_path %>

@@ -1,0 +1,18 @@
+<h1>Listing evaluate_lecturers</h1>
+
+<table>
+  <tr>
+  </tr>
+
+<% @evaluate_lecturers.each do |evaluate_lecturer| %>
+  <tr>
+    <td><%= link_to 'Show', evaluate_lecturer %></td>
+    <td><%= link_to 'Edit', edit_evaluate_lecturer_path(evaluate_lecturer) %></td>
+    <td><%= link_to 'Destroy', evaluate_lecturer, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New evaluate_lecturer', new_evaluate_lecturer_path %>

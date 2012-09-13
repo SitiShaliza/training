@@ -1,0 +1,6 @@
+<div class="fields">
+	| <%= f.text_field :organisation_name, :placeholder => 'Organisation Name' %> &nbsp;   &nbsp;
+	| <%= f.text_field :position_name, :placeholder => 'Position' %>  &nbsp;   &nbsp;
+	| <%= f.text_field :place, :placeholder => 'Place' %><%= f.hidden_field :_destroy %>
+	<%= link_to_remove_fields image_tag("delete.png", :border => 0, :title => 'Remove'), f %>
+</div>
