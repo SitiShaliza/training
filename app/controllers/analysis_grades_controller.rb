@@ -3,7 +3,7 @@ class AnalysisGradesController < ApplicationController
   # GET /analysis_grades.xml
   def index
    # @analysis_grades = AnalysisGrade.all
-   @analysis_grades = AnalysisGrade.find(:all)#with_permissions_to(:index)
+   @analysis_grades = AnalysisGrade.with_permissions_to(:index)
    
     respond_to do |format|
       format.html # index.html.erb
